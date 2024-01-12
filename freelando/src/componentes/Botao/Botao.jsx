@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from '@emotion/styled'
 
 const BotaoPrimarioEstilizado = styled.button`
     background: ${props => props.theme.cores.primarias.b};
@@ -42,12 +42,11 @@ const BotaoSecundarioEstilizado = styled.button`
 
 export const Botao = ({ children, variante = 'primaria' }) => {
     if (variante === 'primaria') {
-        return (<BotaoPrimarioEstilizado>
+        return <BotaoPrimarioEstilizado>
             {children}
-        </BotaoPrimarioEstilizado>)
+        </BotaoPrimarioEstilizado>
     }
-
-    return (<BotaoSecundarioEstilizado>
+    return <BotaoSecundarioEstilizado>
         {children}
-    </BotaoSecundarioEstilizado>)
+    </BotaoSecundarioEstilizado>
 }
