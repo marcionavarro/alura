@@ -12,7 +12,7 @@ const LabelEstilizada = styled.label`
 const InputEstilizado = styled.input`
     display: block;
     width: 100%;
-    margin-top: ${props => props.theme.espacamentos.xs};
+    margin: ${props => props.theme.espacamentos.xs} 0px ${props => props.theme.espacamentos.m};
     background:  ${props => props.theme.cores.branco};
     height: 40px;
     border-radius: ${props => props.theme.espacamentos.s};
@@ -23,7 +23,7 @@ const InputEstilizado = styled.input`
     font-weight: 400;
     color: ${props => props.theme.cores.neutras.a};
     padding: 0px ${props => props.theme.espacamentos.s};
-    
+    box-sizing: border-box;
 `
 
 export const CampoTexto = ({ titulo }) => {
