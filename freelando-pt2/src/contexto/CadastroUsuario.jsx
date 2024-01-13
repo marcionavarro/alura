@@ -24,7 +24,8 @@ export const CadastroUsuarioContext = createContext({
     setSenha: () => null,
     setSenhaConfirmada: () => null,
     submeterUsuario: () => null,
-    possoSelecionarInteresse: () => null
+    possoSelecionarInteresse: () => null,
+    possoSelecionarDadosPessoais: () => null
 })
 
 export const useCadastroUsuarioContext = () => {
@@ -115,6 +116,10 @@ export const CadastroUsuarioProvider = ({ children }) => {
         return !!usuario.perfil
     }
 
+    const possoSelecionarDadosPessoais = () => {
+        return console.log(usuario.nomeCompleto);
+    }
+
     const contexto = {
         usuario,
         setPerfil,
@@ -126,7 +131,8 @@ export const CadastroUsuarioProvider = ({ children }) => {
         setSenha,
         setSenhaConfirmada,
         submeterUsuario,
-        possoSelecionarInteresse
+        possoSelecionarInteresse,
+        possoSelecionarDadosPessoais
     }
 
     return (<CadastroUsuarioContext.Provider value={contexto}>

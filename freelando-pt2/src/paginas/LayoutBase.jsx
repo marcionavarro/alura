@@ -1,16 +1,16 @@
-import { Col, Container, Row } from "react-grid-system";
-import { Cabecalho } from "../componentes/Cabecalho/Cabecalho";
-import { FreelandoLogo } from "../componentes/Icones/FreelandoLogo";
-import { Outlet } from "react-router-dom";
-import { Rodape } from "../componentes/Rodape/Rodape";
-import { Tipografia } from "../componentes/Tipografia/Tipografia";
-import { ItemListaInline } from "../componentes/Lista/ItemListaInline";
-import { ListaInline } from "../componentes/Lista/ListaInline";
-import { IconeWhatsApp } from "../componentes/Icones/IconeWhatsApp";
-import { IconeTwitch } from "../componentes/Icones/IconeTwitch";
-import { IconeInstagram } from "../componentes/Icones/IconeInstagram";
-import { IconeTwitter } from "../componentes/Icones/IconeTwitter";
-import { Link } from "../componentes/Link/Link";
+import { Col, Container, Row } from "react-grid-system"
+import { Outlet } from "react-router-dom"
+import { Cabecalho } from "../componentes/Cabecalho/Cabecalho"
+import { FreelandoLogo } from "../componentes/Icones/FreelandoLogo"
+import { IconeInstagram } from "../componentes/Icones/IconeInstagram"
+import { IconeTwitch } from "../componentes/Icones/IconeTwitch"
+import { IconeTwitter } from "../componentes/Icones/IconeTwitter"
+import { IconeWhatsApp } from "../componentes/Icones/IconeWhatsApp"
+import { Link } from "../componentes/Link/Link"
+import { ItemListaInline } from "../componentes/Lista/ItemListaInline"
+import { ListaInline } from "../componentes/Lista/ListaInline"
+import { Rodape } from "../componentes/Rodape/Rodape"
+import { Tipografia } from "../componentes/Tipografia/Tipografia"
 
 const LayoutBase = () => {
     return (
@@ -66,7 +66,7 @@ const LayoutBase = () => {
                 </Container>
             </Rodape>
         </>
-    );
+    )
 }
 
-export default LayoutBase;
+export default LayoutBase

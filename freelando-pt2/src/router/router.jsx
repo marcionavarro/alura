@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom"
-import SelecaoCliente from "../paginas/cadastro/SelecaoCliente";
-import LayoutBaseCadastro from "../paginas/cadastro/LayoutBaseCadastro";
-import LayoutBase from "../paginas/LayoutBase";
-import Interesses from "../paginas/cadastro/Interesses";
-import DadosPessoais from "../paginas/cadastro/DadosPessoais";
 import Concluido from "../paginas/cadastro/Concluido";
+import DadosPessoais from "../paginas/cadastro/DadosPessoais";
+import Interesses from "../paginas/cadastro/Interesses";
+import LayoutBaseCadastro from "../paginas/cadastro/LayoutBaseCadastro";
+import SelecaoCliente from "../paginas/cadastro/SelecaoCliente";
+import LayoutBase from "../paginas/LayoutBase";
 
 export const router = createBrowserRouter([
     {
@@ -12,25 +12,25 @@ export const router = createBrowserRouter([
         element: <LayoutBase />,
         children: [
             {
-                path: "cadastro",
+                path:'cadastro',
                 element: <LayoutBaseCadastro />,
                 children: [
                     {
                         path: '',
-                        element: <SelecaoCliente />,
+                        element: <SelecaoCliente />
                     },
                     {
-                        path: "interesses",
+                        path: 'interesses',
                         element: <Interesses />
                     },
                     {
-                        path: "dados-pessoais",
+                        path: 'dados-pessoais',
                         element: <DadosPessoais />
                     },
                     {
-                        path: "concluido",
+                        path: 'concluido',
                         element: <Concluido />
-                    },
+                    }
                 ]
             }
         ],
