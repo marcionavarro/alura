@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import http from '../http';
+import { http } from '../http/http';
 
 const usuarioInicial = {
     perfil: '',
@@ -16,6 +16,7 @@ const usuarioInicial = {
 export const CadastroUsuarioContext = createContext({
     usuario: usuarioInicial,
     erros: {},
+    carregando: false,
     setPerfil: () => null,
     setInteresse: () => null,
     setNomeCompleto: () => null,
@@ -32,11 +33,16 @@ export const useCadastroUsuarioContext = () => {
     return useContext(CadastroUsuarioContext);
 }
 
+export const registrarUsuario = (usuario) => {
+    return http.post('auth/register', usuario)
+}
+
 export const CadastroUsuarioProvider = ({ children }) => {
 
     const navegar = useNavigate()
 
     const [usuario, setUsuario] = useState(usuarioInicial)
+    const [carregando, setCarregando] = useState(false)
 
     const setPerfil = (perfil) => {
         setUsuario(estadoAnterior => {
@@ -104,9 +110,13 @@ export const CadastroUsuarioProvider = ({ children }) => {
     }
 
     const submeterUsuario = () => {
-        http.post('auth/register', usuario).then(() => {
-            navegar("/cadastro/concluido")
-        }).catch((error) => console.log(error))
+        setCarregando(true)
+        registrarUsuario(usuario)
+            .then(() => {
+                navegar('/cadastro/concluido')
+            })
+            .catch(erro => console.log(erro))
+            .finally(() => setCarregando(false))
     }
 
     const possoSelecionarInteresse = () => {
@@ -115,6 +125,7 @@ export const CadastroUsuarioProvider = ({ children }) => {
 
     const contexto = {
         usuario,
+        carregando,
         setPerfil,
         setInteresse,
         setNomeCompleto,

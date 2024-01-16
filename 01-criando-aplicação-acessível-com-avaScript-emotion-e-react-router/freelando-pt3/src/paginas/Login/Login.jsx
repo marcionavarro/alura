@@ -5,9 +5,11 @@ import { Link as RouterLink } from "react-router-dom"
 import { Botao } from "../../componentes/Botao/Botao"
 import { CampoTexto } from "../../componentes/CampoTexto/CampoTexto"
 import { Card } from "../../componentes/Card/Card"
+import { Link } from "../../componentes/Link/Link"
 import { Tipografia } from "../../componentes/Tipografia/Tipografia"
-import { Logo } from "./Logo"
-import { UseSessaoUsuarioContext } from "../../contexto/SessaoUsuario";
+import { useSessaoUsuarioContext } from "../../contexto/SessaoUsuario"
+
+import logo from './logo.png';
 
 const FormEstilizado = styled.form`
     border-bottom: 1px solid;
@@ -15,22 +17,27 @@ const FormEstilizado = styled.form`
     padding-bottom: ${props => props.theme.espacamentos.l};
 `
 
+const ImgEstilizada = styled.img`
+    margin: ${props => props.theme.espacamentos.m} 0;
+`
+
 const Login = () => {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
-   const { login } = UseSessaoUsuarioContext();
+    const { login } = useSessaoUsuarioContext();
 
     const tentarEfetuarLogin = async (evento) => {
-        evento.preventDefault();
-        login(email, senha);
+        evento.preventDefault()
+        login(email, senha)
+
     }
 
     return (<Container>
         <Row justify="center">
             <Col xxx={6} xxl={6} xl={6} lg={6} md={8} sm={12} style={{ margin: '80px 0' }}>
                 <div style={{ textAlign: 'center' }}>
-                    <Logo />
+                    <ImgEstilizada src={logo} alt=""/>
                 </div>
                 <Card>
                     <div style={{ textAlign: 'center' }}>
@@ -51,28 +58,30 @@ const Login = () => {
                             onChange={setSenha}
                             tipo="password"
                         />
-                        <div style={{ textAlign: 'right' }}>
+                        <div style={{ textAlign: 'right'}}>
                             <RouterLink to="">
                                 <Tipografia componente="legenda" variante="legenda">
                                     Esqueceu sua senha?
                                 </Tipografia>
                             </RouterLink>
                         </div>
-                        <div style={{ textAlign: 'center' }}>
+                        <div style={{ textAlign: 'center'}}>
                             <Botao>
                                 Login
                             </Botao>
                         </div>
                     </FormEstilizado>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center'}}>
                         <Tipografia componente="legenda" variante="legenda">
-                            Ainda não criou sua conta no Freelando?
+                            Ainda não criou sua conta no Freelando? 
                         </Tipografia>
                     </div>
-                    <div style={{ textAlign: 'center' }}>
-                            <RouterLink to="/cadastro">
+                    <div style={{ textAlign: 'center'}}>
+                        <RouterLink to="/cadastro">
+                            <Link variante="secundario">
                                 Cadastre-se clicando aqui!
-                            </RouterLink>
+                            </Link>
+                        </RouterLink>
                     </div>
                 </Card>
             </Col>

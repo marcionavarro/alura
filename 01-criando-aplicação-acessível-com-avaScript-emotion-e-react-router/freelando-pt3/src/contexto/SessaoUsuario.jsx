@@ -1,37 +1,89 @@
-import { useContext } from "react";
-import http from "../http";
-import { ArmazenadorToken } from "../utils/ArmazenadorToken";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AmazenadorToken } from '../autenticacao/AmazenadorToken';
+import { http } from '../http/http';
 
-const { createContext } = require("react");
+const perfilInicial = {
+    nomeCompleto: '',
+    nome: '',
+    sobrenome: '',
+    celular: '',
+    email: '',
+    cep: '',
+    pais: '',
+}
 
 const SessaoUsuarioContext = createContext({
     usuarioEstaLogado: false,
-    login: (email, senha) => null,
     logout: () => null,
-    perfil: {},
-})
+    login: (email, senha) => null,
+    setPerfil: (perfil) => null,
+    atualizarPerfil: () => null,
+    perfil: perfilInicial,
+});
 
-export const UseSessaoUsuarioContext = () => {
+
+
+export const useSessaoUsuarioContext = () => {
     return useContext(SessaoUsuarioContext);
-}
+};
 
 export const SessaoUsuarioProvider = ({ children }) => {
+    const [perfil, setPerfil] = useState(perfilInicial)
+    const [usuarioEstaLogado, setUsuarioEstaLogado] = useState(
+        AmazenadorToken.estaLogado
+    );
+    const navigate = useNavigate();
+
+    const logout = () => {
+        AmazenadorToken.limpar();
+        setUsuarioEstaLogado(false);
+        navigate('/');
+    };
+
+    const obterPerfil = () => {
+        http.get('profile').then((resposta) => {
+            setPerfil(oldState => ({
+                ...oldState,
+                ...resposta.data
+            }));
+        });
+    };
+
+    const atualizarPerfil = () => {
+        return http.put('profile', perfil)
+    };
+
+    useEffect(() => {
+        if (usuarioEstaLogado) {
+            obterPerfil()
+        }
+    }, [usuarioEstaLogado])
 
     const login = (email, senha) => {
-        http.post('auth/login', { email, senha })
+        http
+            .post('auth/login', { email, senha })
             .then((resposta) => {
-                ArmazenadorToken.definirToken(
-                    resposta.data.access_token,
-                    resposta.data.refresh_token
-                )
+                AmazenadorToken.definirTokens(resposta.data.access_token, resposta.data.refresh_token);
+                setUsuarioEstaLogado(true);
             })
-            .catch((error) => console.log(error))
-    }
+            .catch(() => alert('Falha ao efetuar login!'))
+            .finally(() => navigate('/'));
+    };
+
 
     const value = {
-        login
-    }
+        usuarioEstaLogado,
+        logout,
+        login,
+        perfil,
+        setPerfil,
+        atualizarPerfil
+    };
 
-    return <SessaoUsuarioContext.Provider value={value}>{children}</SessaoUsuarioContext.Provider>
-}
-
+    return (
+        <SessaoUsuarioContext.Provider value={value}>
+            {children}
+        </SessaoUsuarioContext.Provider>
+    );
+};
