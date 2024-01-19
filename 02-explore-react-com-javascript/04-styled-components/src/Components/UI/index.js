@@ -1,14 +1,20 @@
 import styled from "styled-components";
+import { corPrimaria } from "./variaveis";
 
 export const Icone = styled.img`
     height: 25px;
     width: 25px;
 `
+
+export const IconeTema = styled(Icone)`
+    filter: ${({ theme }) => theme.filter};
+`
+
 export const Box = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: white;
+    background-color: ${({ theme }) => theme.inside};
     border-radius: 5px;
     box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.04);
     padding: 20px;
@@ -25,9 +31,9 @@ export const Botao = styled.button`
     margin: 15px auto 0px auto;
     display: block;
     border-radius: 20px;
-    background-color: #41d3be;
+    background-color: ${corPrimaria};
     border: none;
-    color: white;
+    color: ${({ theme }) => theme.text};
     font-weight: 600;
     font-size: 14px;
     padding: 8px 20px;
@@ -40,6 +46,15 @@ export const Saldo = styled.div`
 `
 
 export const Detalhe = styled.span`
-    color: #41d3be;
+    color: ${corPrimaria};
     font-size: 24px;
-`
+`;
+
+export const BtnTema = styled.button`
+    position: absolute;
+    top:4vh;
+    right: 50px;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+`;
