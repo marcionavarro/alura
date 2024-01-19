@@ -34,7 +34,7 @@ const Cabecalho = () => {
     <StyleHeader>
       <Logo src={bank_logo} alt="Logo Smart Bank" />
       <div>
-        <BtnCabecalho primary href="https://google.com">
+        <BtnCabecalho primary="true" href="https://google.com">
           Ajuda
         </BtnCabecalho>
         <BtnCabecalho  href="https://google.com">
